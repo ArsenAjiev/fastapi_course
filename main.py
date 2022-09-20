@@ -20,16 +20,16 @@ app = FastAPI()
 #     return {"user": pk, "item": item}
 
 
-@app.post('/book')
-def create_book(item: Book = Body(..., embed=True), quantity: int = Body(...)):
-    return item, quantity
+@app.post('/book', response_model=Book)
+def create_book(item: Book):
+    return item
 
 
-@app.get('/book')
-def get_book(q: List[str] = Query("test", description="search book", deprecated=True)):
-    return q
-
-
-@app.get('/book/{pk}')
-def get_single_book(pk: int = Path(..., gt=1, le=20), pages: int = Query(None, gt=10)):
-    return {"pk": pk, "pages": pages}
+# @app.get('/book')
+# def get_book(q: List[str] = Query("test", description="search book", deprecated=True)):
+#     return q
+#
+#
+# @app.get('/book/{pk}')
+# def get_single_book(pk: int = Path(..., gt=1, le=20), pages: int = Query(None, gt=10)):
+#     return {"pk": pk, "pages": pages}
